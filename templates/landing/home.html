@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-12 mb-3">
+         <button class="btn btn-danger">
+                            <a href="{% url 'logout' %}">Logout</a>
+        </button>
+    </div>
+
+</div>
+    {% if account != 'private' %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="p-3"><img src="{{ photos }}" alt="Фотография аккаунта"></div>
+                </div>
+                <div class="col-md-5 box mt-3 p-0">
+                    <div class="container-fluid">
+                        <h3>{{ account.first_name}} {{ account.last_name }}</h3>
+                        <p>{{ account.status }}</p>
+                        <p>Город: {{ account.city.title }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="category-list">
+            {% for friend in friends%}
+                <a href="https://vk.com/id{{ friend.id }}">
+                    <div class="block ml-1 mr-1 mb-1">
+                        <li class="mt-3 mb-3">{{ friend.first_name }} {{ friend.last_name }}</li>
+                    </div>
+                </a>
+            {% endfor %}
+       </ul>
+    {% else %}
+        <p>приватный профиль</p>
+    {% endif %}
+{% endblock %}
